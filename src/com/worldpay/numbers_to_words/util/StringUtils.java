@@ -8,6 +8,14 @@ public class StringUtils {
     private StringUtils() {
     }
 
+    /**
+     * Splits the value into chunks of a certain size, starting right.
+     * For example, if size = 3 and value = "1234567", the result is: "1", "234", "567".
+     *
+     * @param value
+     * @param size
+     * @return
+     */
     public static List<String> splitIntoChunksOfSizeStartingRight(String value, int size) {
 
         List<String> result = new ArrayList<String>();

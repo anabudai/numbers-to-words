@@ -1,4 +1,4 @@
-package com.worldpay.numbers_to_words;
+package com.worldpay.numbers_to_words.transformer;
 
 public interface NumberToWordTransformer {
 

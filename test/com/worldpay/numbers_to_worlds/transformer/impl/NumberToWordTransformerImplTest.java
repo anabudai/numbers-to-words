@@ -1,7 +1,8 @@
-package com.worldpay.numbers_to_worlds;
+package com.worldpay.numbers_to_worlds.transformer.impl;
 
-import com.worldpay.numbers_to_words.NumberToWordTransformer;
-import com.worldpay.numbers_to_words.impl.NumberToWordTransformerImpl;
+import com.worldpay.numbers_to_words.exception.NumberToWordException;
+import com.worldpay.numbers_to_words.transformer.NumberToWordTransformer;
+import com.worldpay.numbers_to_words.transformer.impl.NumberToWordTransformerImpl;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,6 +28,16 @@ public class NumberToWordTransformerImplTest {
     @Before
     public void setUp() {
         numberToWordTransformer = new NumberToWordTransformerImpl();
+    }
+
+    @Test(expected = NumberToWordException.class)
+    public void shouldThrowExceptionWhenNumberIsLowerThanLimits() {
+        numberToWordTransformer.transform(-8);
+    }
+
+    @Test(expected = NumberToWordException.class)
+    public void shouldThrowExceptionWhenNumberIsGreaterThanLimits() {
+        numberToWordTransformer.transform(1000000000);
     }
 
     @Test

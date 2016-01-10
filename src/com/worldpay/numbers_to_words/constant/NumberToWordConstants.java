@@ -14,10 +14,13 @@ public final class NumberToWordConstants {
     public static String STRING_SPACE = " ";
     public static String AND = "and";
 
+    public static int NUMBER_LOWER_LIMIT = 0;
+    public static int NUMBER_UPPER_LIMIT = 999999999;
+
     /**
      * Exception codes:
      */
-    public static String NUMBER_IS_NEGATIVE_EXCEPTION_CODE = "numberIsNegative";
+    public static String NUMBER_IS_NOT_BETWEEN_LIMITS_EXCEPTION_CODE = "numberIsNotBetweenLimits";
 
     /**
      * Cyphers:
