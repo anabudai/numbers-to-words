@@ -66,5 +66,5 @@ public final class NumberToWordConstants {
     public static final List<String> DECIMALS = Arrays.asList(TWENTY, THIRTY, FORTY, FIFTY, SIXTY, SEVENTY, EIGHTY,
             NINETY);
 
-    public static List<String> NUMERIC_GROUPS = Arrays.asList(THOUSAND, MILLION);
+    public static List<String> NUMERIC_GROUPS = Arrays.asList(STRING_EMPTY, THOUSAND, MILLION);
 }

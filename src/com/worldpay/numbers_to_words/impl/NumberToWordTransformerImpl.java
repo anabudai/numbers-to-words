@@ -1,11 +1,8 @@
 package com.worldpay.numbers_to_words.impl;
 
 import com.worldpay.numbers_to_words.NumberToWordTransformer;
-import com.worldpay.numbers_to_words.exception.NumberToWordException;
+import com.worldpay.numbers_to_words.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static com.worldpay.numbers_to_words.constant.NumberToWordConstants.*;
@@ -16,15 +13,12 @@ public class NumberToWordTransformerImpl implements NumberToWordTransformer {
     @Override
     public String transform(int number) {
         StringBuilder numberAsWord = new StringBuilder();
-        List<String> groupsOfThreeCypherAsStrings = parseNumberIntoThreeCypherGroupsFromTheEnd(number);
-        List<Integer> groupsOfThreeCypher = transformStringsIntoNumbers(groupsOfThreeCypherAsStrings);
-        for(int i = groupsOfThreeCypherAsStrings.size() - 1; i >= 0; --i) {
-            int groupOfThreeCypher = Integer.valueOf(reverse(groupsOfThreeCypherAsStrings.get(i)));
-            String parse = transformNumberGroupToWord(groupOfThreeCypher, i < groupsOfThreeCypherAsStrings.size()-1);
-            numberAsWord.append(parse).append(STRING_SPACE);
-            if(i - 1 >= 0) {
-                numberAsWord.append(NUMERIC_GROUPS.get(i - 1)).append(STRING_SPACE);
-            }
+        List<String> numberSplitIntoGroups = StringUtils.splitIntoChunksOfSizeStartingRight(String.valueOf(number), 3);
+        for(int i = 0; i < numberSplitIntoGroups.size(); ++i) {
+            int group = Integer.valueOf(numberSplitIntoGroups.get(i));
+            String word = transformNumberGroupToWord(group, i > 0);
+            numberAsWord.append(word).append(STRING_SPACE);
+            numberAsWord.append(NUMERIC_GROUPS.get(numberSplitIntoGroups.size() - i - 1)).append(STRING_SPACE);
         }
         return numberAsWord.toString().trim();
     }
@@ -62,39 +56,4 @@ public class NumberToWordTransformerImpl implements NumberToWordTransformer {
         }
         return  numberAsWord.toString().trim();
     }
-
-    private List<String> parseNumberIntoThreeCypherGroupsFromTheEnd(int number) {
-        String numberAsString = String.valueOf(number);
-        String reversedNumber = reverse(numberAsString);
-
-        String[] groupsOfThree = reversedNumber.toString().split("(?<=\\G...)");
-        return Arrays.asList(groupsOfThree);
-    }
-
-    private List<Integer> transformStringsIntoNumbers(List<String> numbersAsString) {
-        List<Integer> numbers = new ArrayList<Integer>();
-        for(String numberAsString : numbersAsString) {
-            numbers.add(Integer.valueOf(numberAsString));
-        }
-        return numbers;
-    }
-
-    private int countZeroValueGroups(List<Integer> numbers) {
-        int contor = 0;
-        for(int number : numbers) {
-            if(number == 0) {
-                ++contor;
-            }
-        }
-        return contor;
-    }
-
-    private String reverse(String value) {
-        StringBuilder reversedNumber = new StringBuilder();
-        for(int i = value.length() - 1; i >= 0; --i) {
-            reversedNumber.append(value.charAt(i));
-        }
-        return reversedNumber.toString();
-    }
-
 }
