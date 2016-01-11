@@ -26,7 +26,6 @@ public class NumberToWordTransformerImpl implements NumberToWordTransformer {
      * @param number
      * @return
      */
-    @Override
     public String transform(int number) {
         if(!numberRangeValidator.validate(number)) {
             throw new NumberToWordException(NUMBER_IS_NOT_BETWEEN_LIMITS_EXCEPTION_CODE);
